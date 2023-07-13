@@ -27,8 +27,32 @@ protected:
 	UProjectileMovementComponent* MovementComp; // 投射物移动组件
 
 protected:
+
+	// 自我销毁计时器
+	FTimerHandle FTimerHandle_DestoryPrjDelay;
+	float DestoryPrjDelay;
+
+	UPROPERTY(EditAnywhere)
+	float Damage; // 伤害
+
+protected:
+	// 组件碰撞事件处理函数  
+	UFUNCTION()
+	virtual void OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	UFUNCTION()
+	virtual void OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void Explode();
+
+	virtual void DestoryPrj();
+
+protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	virtual void PostInitializeComponents() override;
 
 public:	
 	// Called every frame

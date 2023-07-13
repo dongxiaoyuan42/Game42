@@ -9,6 +9,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputTriggers.h"
 #include "Math/Vector2D.h"
+#include "Component/SAttributeComponent.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -23,13 +24,32 @@ ASCharacter::ASCharacter()
 	// 添加相机组件
 	CameraComp = CreateDefaultSubobject<UCameraComponent>("CameraComp");
 	CameraComp->SetupAttachment(SpringArmComp);
+	// 添加属性组件
+	AttributeComp = CreateDefaultSubobject<USAttributeComponent>("AttributeComp");
 
+}
+
+void ASCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	// 生命改变时死亡判定
+	AttributeComp->OnHealthChanged.AddDynamic(this, &ASCharacter::GetHealthChange);
 }
 
 // Called when the game starts or when spawned
 void ASCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// 添加输入映射
+	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+		}
+	}
 
 }
 
@@ -93,5 +113,18 @@ void ASCharacter::Look(const FInputActionValue& Value)
 		// add yaw and pitch input to controller
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
+	}
+}
+
+// 死亡判断
+void ASCharacter::GetHealthChange(AActor* InstigatordActor, USAttributeComponent* OwningComp, float NewHealth, float Delta)
+{
+	// 确认死亡后禁用输入
+	if (NewHealth <= 0.0f && Delta <= 0.0f)
+	{
+		APlayerController* PC = Cast<APlayerController>(GetController());
+		DisableInput(PC);
+
+		SetLifeSpan(5.0f);
 	}
 }

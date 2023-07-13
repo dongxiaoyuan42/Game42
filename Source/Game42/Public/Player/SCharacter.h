@@ -10,6 +10,7 @@
 class USpringArmComponent; // 弹簧臂组件
 class UCameraComponent; // 摄像机组件
 class USAttributeComponent; // 属性组件
+class USActionComponent; // 行动组件
 
 // 输入相关
 class UInputMappingContext;
@@ -37,6 +38,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
 	USAttributeComponent* AttributeComp; // 属性组件
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
+	USActionComponent* ActionComp; // 行动组件
+
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -51,11 +55,17 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction; // 角色视角
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* PrimaryAttackAction; // 左键普通攻击
+
 	// 移动
 	void Move(const FInputActionValue& Value);
 
 	// 角色视角
 	void Look(const FInputActionValue& Value);
+
+	// 普通攻击
+	void PrimaryAttack();
 
 protected:
 

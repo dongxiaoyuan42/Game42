@@ -22,6 +22,8 @@ bool USAttributeComponent::ApplyHealthChange(AActor* InstigatordActor, float Del
 		OnHealthChanged.Broadcast(InstigatordActor, this, NewHealth, Delta);
 	}
 
+	UE_LOG(LogTemp, Log, TEXT("Health Has Change, Delta = %f."), ActualDelta);
+
 	return ActualDelta > 0;
 
 }

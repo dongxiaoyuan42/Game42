@@ -9,6 +9,7 @@
 
 class USpringArmComponent; // 弹簧臂组件
 class UCameraComponent; // 摄像机组件
+class USAttributeComponent; // 属性组件
 
 // 输入相关
 class UInputMappingContext;
@@ -33,6 +34,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp; // 摄像机组件
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Component")
+	USAttributeComponent* AttributeComp; // 属性组件
+
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -53,10 +57,18 @@ protected:
 	// 角色视角
 	void Look(const FInputActionValue& Value);
 
+protected:
+
+	// 死亡判断
+	UFUNCTION()
+	void GetHealthChange(AActor* InstigatordActor, USAttributeComponent* OwningComp, float NewHealth, float Delta);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	// 注册事件绑定函数
+	virtual void PostInitializeComponents() override;
 
 public:
 	// Called every frame

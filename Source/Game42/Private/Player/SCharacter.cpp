@@ -10,6 +10,7 @@
 #include "InputTriggers.h"
 #include "Math/Vector2D.h"
 #include "Component/SAttributeComponent.h"
+#include "Component/SActionComponent.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -26,6 +27,8 @@ ASCharacter::ASCharacter()
 	CameraComp->SetupAttachment(SpringArmComp);
 	// 添加属性组件
 	AttributeComp = CreateDefaultSubobject<USAttributeComponent>("AttributeComp");
+	// 添加行动组件
+	ActionComp = CreateDefaultSubobject<USActionComponent>("ActionComp");
 
 }
 
@@ -74,6 +77,8 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASCharacter::Move);
 		// 角色视角
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ASCharacter::Look);
+		// 普通攻击
+		EnhancedInputComponent->BindAction(PrimaryAttackAction, ETriggerEvent::Triggered, this, &ASCharacter::PrimaryAttack);
 
 	}
 }
@@ -114,6 +119,12 @@ void ASCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+// 普通攻击
+void ASCharacter::PrimaryAttack()
+{
+	ActionComp->StartActionByName(this, "BaseAttack");
 }
 
 // 死亡判断

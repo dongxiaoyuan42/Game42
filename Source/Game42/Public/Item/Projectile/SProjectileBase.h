@@ -6,6 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "SProjectileBase.generated.h"
 
+class USphereComponent; // 球
+class UProjectileMovementComponent; // 投射物移动组件
+
 UCLASS()
 class GAME42_API ASProjectileBase : public AActor
 {
@@ -14,6 +17,14 @@ class GAME42_API ASProjectileBase : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ASProjectileBase();
+
+protected:
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	USphereComponent* SphereComp; // 球
+
+	UPROPERTY(VisibleAnywhere)
+	UProjectileMovementComponent* MovementComp; // 投射物移动组件
 
 protected:
 	// Called when the game starts or when spawned

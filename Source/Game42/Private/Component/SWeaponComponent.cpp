@@ -2,6 +2,7 @@
 
 
 #include "Component/SWeaponComponent.h"
+#include "Item/Projectile/SProjectileBase.h"
 
 // Sets default values for this component's properties
 USWeaponComponent::USWeaponComponent()
@@ -39,12 +40,16 @@ void USWeaponComponent::AddBullet(TSubclassOf<ASProjectileBase> ProjectileClass)
 	{
 		return;
 	}
-	// £¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿
-	//if (ProjectileClass)
-	//{
+
+	if (!ProjectileClass) {
+		BulletInGun.Add(DefaultBullet);
+		return;
+	}
+	
+	if (ProjectileClass)
+	{
 		BulletInGun.Add(ProjectileClass);
-	//}
-	// £¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿
+	}
 }
 
 // ×°Âú
@@ -57,12 +62,10 @@ void USWeaponComponent::AddAll()
 		return;
 	}
 
-	//if (ensure(DefaultBullet))
-	//{
-		// £¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿
+	if (ensure(DefaultBullet))
+	{
 		BulletInGun.Append(&DefaultBullet, delta);
-		// £¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿£¿
-	//}
+	}
 }
 
 
@@ -82,4 +85,14 @@ void USWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+USWeaponComponent* USWeaponComponent::GetWeaponComp(AActor* FromActor)
+{
+	if (FromActor)
+	{
+		return Cast<USWeaponComponent>(FromActor->GetComponentByClass(USWeaponComponent::StaticClass()));
+	}
+
+	return nullptr;
 }

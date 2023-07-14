@@ -11,6 +11,7 @@
 #include "Math/Vector2D.h"
 #include "Component/SAttributeComponent.h"
 #include "Component/SActionComponent.h"
+#include "Component/SWeaponComponent.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -29,6 +30,8 @@ ASCharacter::ASCharacter()
 	AttributeComp = CreateDefaultSubobject<USAttributeComponent>("AttributeComp");
 	// 添加行动组件
 	ActionComp = CreateDefaultSubobject<USActionComponent>("ActionComp");
+	// 添加武器组件
+	WeaponComp = CreateDefaultSubobject<USWeaponComponent>("WeaponComp");
 
 }
 

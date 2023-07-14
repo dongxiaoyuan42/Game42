@@ -7,8 +7,8 @@
 
 USHealthWidget::USHealthWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
+	MaxHealth = 100.0f;
 	HealthChangeCommon(100.0f);
-	MaxHealth = Health;
 }
 
 // UI构造完成时绑定相关事件
@@ -29,6 +29,9 @@ void USHealthWidget::NativeConstruct()
 			// 绑定玩家属性组件 OnHealthChanged 到 GetHealthChange
 			AttributeComp->OnHealthChanged.AddDynamic(this, &USHealthWidget::GetHealthChange);
 		}
+		// 开始时UI初始化
+		HealthChangeCommon(Health);
+		HealthMaterial->SetScalarParameterValue("PrograssAlpha", HealthRate);
 	}
 }
 

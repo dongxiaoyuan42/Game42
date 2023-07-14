@@ -129,3 +129,13 @@ bool USActionComponent::StopActionByName(AActor* InstigatorActor, FName ActionNa
 	}
 	return false;
 }
+
+USActionComponent* USActionComponent::GetActionComp(AActor* FromActor)
+{
+	if (FromActor)
+	{
+		return Cast<USActionComponent>(FromActor->GetComponentByClass(USActionComponent::StaticClass()));
+	}
+
+	return nullptr;
+}

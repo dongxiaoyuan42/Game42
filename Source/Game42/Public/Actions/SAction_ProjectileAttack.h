@@ -6,6 +6,9 @@
 #include "Actions/SAction.h"
 #include "SAction_ProjectileAttack.generated.h"
 
+
+class USWeaponComponent; // 武器组件
+
 /**
  * 
  */
@@ -23,6 +26,9 @@ protected:
 	FName HandSocketName; // 发射抛射物插槽名称
 
 	FTimerHandle TimerHandle_PrimaryAttack; // 延时
+
+	UPROPERTY()
+	USWeaponComponent* WeaponComp; // 武器组件
 
 	// 实施攻击
 	UFUNCTION()

@@ -18,28 +18,31 @@ public:
 	// Sets default values for this component's properties
 	USWeaponComponent();
 
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	USWeaponComponent* GetWeaponComp(AActor* FromActor);
+
 protected:
 
-	UPROPERTY(VisibleAnywhere)
-		UStaticMeshComponent* WeaponMesh; // 枪械网格体
+	UPROPERTY(VisibleAnywhere, Category = "Weapon")
+	UStaticMeshComponent* WeaponMesh; // 枪械网格体
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-		TSubclassOf<ASProjectileBase> DefaultBullet; // 默认子弹
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	TSubclassOf<ASProjectileBase> DefaultBullet; // 默认子弹
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-		int32 BulletNumMax; // 子弹上限
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	int32 BulletNumMax; // 子弹上限
 
-	UPROPERTY(BlueprintReadWrite)
-		TArray<TSubclassOf<ASProjectileBase>> BulletInGun; // 枪械中现存子弹
+	UPROPERTY(BlueprintReadWrite, Category = "Weapon")
+	TArray<TSubclassOf<ASProjectileBase>> BulletInGun; // 枪械中现存子弹
 
-	UFUNCTION(BlueprintCallable)
-		TSubclassOf<ASProjectileBase> Fire(); // 开火
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	TSubclassOf<ASProjectileBase> Fire(); // 开火
 
-	UFUNCTION(BlueprintCallable)
-		void AddBullet(TSubclassOf<ASProjectileBase> ProjectileClass); // 装弹
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void AddBullet(TSubclassOf<ASProjectileBase> ProjectileClass); // 装弹
 
-	UFUNCTION(BlueprintCallable)
-		void AddAll(); // 装满
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void AddAll(); // 装满
 
 	// Called when the game starts
 	virtual void BeginPlay() override;

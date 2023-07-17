@@ -12,6 +12,7 @@ USAttributeComponent::USAttributeComponent()
 	/*精力值*/
 	Energy = 100;
 	EnergyMax = 100;
+	EnergyRecoverySpeed = 1;
 }
 
 USAttributeComponent* USAttributeComponent::GetAttributes(AActor* FromActor)
@@ -96,5 +97,16 @@ bool USAttributeComponent::ApplyEnergyChange(float Delta)
 {
 	Energy += Delta;
 
+	OnEnergyChanged.Broadcast(nullptr, this, Energy, Delta);
+
 	return true;
+}
+
+// 精力值自动回复
+void USAttributeComponent::EnergyRecovery()
+{
+	if (Energy < EnergyMax)
+	{
+		ApplyEnergyChange(EnergyRecoverySpeed);
+	}
 }

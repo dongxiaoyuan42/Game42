@@ -35,6 +35,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Attributes")
 	float EnergyMax; // 最大精力值
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Attributes")
+	float EnergyRecoverySpeed; // 精力回复速度
+
 public:
 	/*生命值*/
 	UFUNCTION(BlueprintCallable, Category = "Attributes")
@@ -72,8 +75,8 @@ public:
 	bool ApplyEnergyChange(float Delta); // 精力值改变
 
 	UFUNCTION(BlueprintCallable, Category = "Attributes")
-	void ApplyEnergyChange(); // 精力值自动回复
+	void EnergyRecovery(); // 精力值自动回复
 
-	//UPROPERTY(BlueprintAssignable)
-	//FOnAttributeChanged OnHealthChanged; // 精力值改变事件
+	UPROPERTY(BlueprintAssignable)
+	FOnAttributeChanged OnEnergyChanged; // 精力值改变事件
 };

@@ -20,7 +20,7 @@ class GAME42_API USHealthWidget : public UUserWidget
 
 public:
 
-	// 构造函数S
+	// 构造函数
 	USHealthWidget(const FObjectInitializer& ObjectInitializer);
 
 protected:
@@ -52,7 +52,4 @@ protected:
 
 	// 普通更新生命值函数
 	bool HealthChangeCommon(float NewHealth);
-
-
-	
 };

@@ -5,6 +5,7 @@
 #include "Component/SAttributeComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
 
+// 构造函数
 USHealthWidget::USHealthWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	MaxHealth = 100.0f;
@@ -14,7 +15,6 @@ USHealthWidget::USHealthWidget(const FObjectInitializer& ObjectInitializer) : Su
 // UI构造完成时绑定相关事件
 void USHealthWidget::NativeConstruct()
 {
-
 	// 获取玩家
 	APawn* PlayerPawn = GetOwningPlayerPawn();
 	if (PlayerPawn)
@@ -39,7 +39,6 @@ void USHealthWidget::NativeConstruct()
 void USHealthWidget::GetHealthChange(AActor* InstigatordActor, USAttributeComponent* OwningComp, float NewHealth, float Delta)
 {
 	HealthChangeCommon(NewHealth);
-
 	// 血条材质更新（已经设置好了，只需要PrograssAlpha与HealthRate）
 	HealthMaterial->SetScalarParameterValue("PrograssAlpha", HealthRate);
 }

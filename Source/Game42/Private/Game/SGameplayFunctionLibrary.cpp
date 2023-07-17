@@ -14,6 +14,7 @@ bool USGameplayFunctionLibrary::ApplyDamage(AActor* DamageCauser, AActor* Target
 		return false;
 	}
 
+	// 获得目标的属性组件
 	USAttributeComponent* AttributeComp = Cast<USAttributeComponent>(TargetActor->GetComponentByClass(USAttributeComponent::StaticClass()));
 	if (AttributeComp)
 	{

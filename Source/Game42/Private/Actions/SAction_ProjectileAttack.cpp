@@ -3,6 +3,7 @@
 
 #include "Actions/SAction_ProjectileAttack.h"
 #include "GameFramework/Character.h"
+#include "Component/SWeaponComponent.h"
 
 USAction_ProjectileAttack::USAction_ProjectileAttack()
 {
@@ -18,6 +19,12 @@ void USAction_ProjectileAttack::StartAction_Implementation(AActor* InstigatorAct
 	ACharacter* Character = Cast<ACharacter>(InstigatorActor);
 	if (Character)
 	{
+
+		if (!WeaponComp)
+		{
+			
+		}
+
 		// 延时发动攻击 后期得改 用蒙太奇替代
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		FTimerHandle TimerHandle_AttackDelay;

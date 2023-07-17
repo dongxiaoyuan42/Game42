@@ -39,6 +39,9 @@ public:
 	// Sets default values for this component's properties
 	USActionComponent();
 
+	UFUNCTION(BlueprintCallable, Category = "Action")
+	USActionComponent* GetActionComp(AActor* FromActor);
+
 protected:
 
 	UPROPERTY(EditAnywhere, Category = "Action")

@@ -39,6 +39,11 @@ protected:
 	float EnergyRecoverySpeed; // 精力回复速度
 
 public:
+
+	void BeginPlay();
+
+	FTimerHandle MemberTimerHandle;
+
 	/*生命值*/
 	UFUNCTION(BlueprintCallable, Category = "Attributes")
 	bool IsAlive() const; // 是否活着

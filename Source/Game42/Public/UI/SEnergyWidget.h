@@ -41,7 +41,7 @@ protected:
 	virtual void NativeConstruct() override; // UI构造完成时绑定相关事件
 
 	UFUNCTION(BlueprintCallable)
-	void GetEnergyChange(AActor* InstigatordActor, USAttributeComponent* OwningComp, float Energy, float Delta); // 精力改变时更新UI
+	void GetEnergyChange(AActor* InstigatordActor, USAttributeComponent* OwningComp, float NewEnergy, float Delta); // 精力改变时更新UI
 	
 	bool EnergyChangeCommon(float Energy); // 普通更新精力值函数
 };

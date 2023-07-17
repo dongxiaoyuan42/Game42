@@ -2,6 +2,7 @@
 
 
 #include "Component/SAttributeComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
 USAttributeComponent::USAttributeComponent()
@@ -23,6 +24,12 @@ USAttributeComponent* USAttributeComponent::GetAttributes(AActor* FromActor)
 	}
 
 	return nullptr;
+}
+
+void USAttributeComponent::BeginPlay()
+{
+	// 添加计时器
+	GetWorld()->GetTimerManager().SetTimer(MemberTimerHandle, this, &USAttributeComponent::EnergyRecovery, 0.1f, true, 0.0f);
 }
 
 // 是否活着

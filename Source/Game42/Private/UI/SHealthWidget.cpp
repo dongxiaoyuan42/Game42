@@ -24,13 +24,13 @@ void USHealthWidget::NativeConstruct()
 		if (ensureAlways(AttributeComp))
 		{
 			// 根据属性组件更新UI参数
+			MaxHealth = AttributeComp->GetHealthMax();
 			HealthChangeCommon(AttributeComp->GetHealth());
-			MaxHealth = Health;
 			// 绑定玩家属性组件 OnHealthChanged 到 GetHealthChange
-			AttributeComp->OnHealthChanged.AddDynamic(this, &USHealthWidget::GetHealthChange);
+			AttributeComp->OnHealthChanged.AddDynamic(this, &USHealthWidget::GetHealthChange); //
 		}
 		// 开始时UI初始化
-		HealthChangeCommon(Health);
+		HealthChangeCommon(Health); //
 		HealthMaterial->SetScalarParameterValue("PrograssAlpha", HealthRate);
 	}
 }
